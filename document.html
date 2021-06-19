@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      background: ivory;
+      align-self: center;
+
+    }
+
+    ul li {
+      cursor: pointer;
+      border: 3px solid grey;
+      position: relative;
+      padding: 12px 8px 12px 40px;
+      background: ivory;
+      font-size: 18px;
+      transition: 0.2s;
+    }
+
+    ul li:hover {
+      background: gold;
+    }
+
+    ul li.checked {
+      background: grey;
+      color: white;
+      text-decoration: line-through;
+    }
+
+    .header {
+      background-color: ivory;
+      padding: 30px 40px;
+      color: darkslategrey;
+      text-align: center;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      float: left;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    input:hover {
+      background-color: gold;
+    }
+
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      text-align: center;
+      width: 5%;
+      padding: 12px 16px 12px 16px;
+    }
+
+    .close:hover {
+      background-color: orange;
+      color: white;
+    }
+
+    .addBtn {
+      padding: 10px;
+      width: 5%;
+      background: white;
+      color: grey;
+      float: left;
+      text-align: center;
+      font-size: 16px;
+      border: 3px solid grey;
+    }
+
+    .addBtn:hover {
+      background-color: gold;
+    }
+
+    .clearTask {
+      position: relative;
+
+      bottom: 5px;
+      left: 15%;
+      background:whitesmoke;
+      
+      width: 250px;
+      height: 35px;
+      vertical-align: middle;
+      cursor: pointer;
+      outline-style: none;
+      border: 3px solid darkslategrey;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="myDIV" class="header">
+    <h2> To Do List</h2>
+    <input type="text" id="myInput" placeholder="add any task">
+    <span onclick="newElement()" class="addBtn">+</span>
+  </div>
+
+  <div class="container">
+    <ul id="myUL">
+      <li>sample task 1</li>
+      <li class="checked">sample task 2</li>
+      <li>sample task 3</li>
+      <li>sample task 4</li>
+    </ul>
+    <button class="clearTask" onclick="clearTask()">Clear all Task</button>
+  </div>
+  <script>
+    //x
+    var myNodelist = document.getElementsByTagName("LI");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      myNodelist[i].appendChild(span);
+    }
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function () {
+        var div = this.parentElement;
+        div.style.display = "none";
+      }
+    }
+    //____________
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function (ev) {
+      if (ev.target.tagName === 'LI') {
+        ev.target.classList.toggle('checked');
+      }
+    }, false);
+
+    // +
+    function newElement() {
+      var li = document.createElement("li");
+      var inputValue = document.getElementById("myInput").value;
+      var t = document.createTextNode(inputValue);
+      li.appendChild(t);
+      if (inputValue === '') {
+        alert("You must write something!");
+      } else {
+        document.getElementById("myUL").appendChild(li);
+      }
+      document.getElementById("myInput").value = "";
+
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+    }
+    function clearTask(){
+      var element = document.getElementById('myUL');
+element.parentNode.removeChild(element);
+    }
+  </script>
+</body>
+
+</html>
